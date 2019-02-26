@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <title>Cricket Item Catalog</title>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<link rel="stylesheet" type="text/css" href="/static/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<style>
+	.bgclr{
+		background-color: #CD853F;
+	}
+</style>
+
+<body>
+ <div class="row">
+    <div class="col-md-12">
+      <img src="{{url_for('static',filename='cricket.png')}}" style="margin:0px; width:1520px; height: 235px;">
+    </div>
+  </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="collapsibleNavbar">
+			  <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+				<li class="nav-item">
+					<a href=""class="nav-link" style="font-size: 25px; color:white;"><span class="fa fa-globe"></span>Welcome to {{country.name}} !!!</a>
+				</li>
+			  </ul>
+			  {% if 'username' in session %}
+			 <ul class="nav navbar-nav  my-2 my-lg-0">
+				 <li class="nav-item">
+					<a href="{{ url_for('newPlayerList',player_id=country.id) }}" class="nav-link" style="font-size: 18px; color:white;"><span class="fa fa-plus"></span> Add Player</a>
+				 </li>
+
+				 
+				 <li class="nav-item">
+					<a href="{{ url_for('logout') }}" class="nav-link" style="font-size: 18px; color:white;"><span class="fa fa-sign-out"></span> Logout</a>
+				 </li>
+			</ul>
+			{% endif %}
+		   </div>
+		</nav>
+	</div>
+
+	<div class="flash mt-2">
+	{% with messages=get_flashed_messages() %}
+		{% if messages %}
+
+		<ul>
+			{% for message in messages %}
+			<li><strong>{{message}}</strong></li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+		{% endwith %}
+	</div>
+
+	<div class="container mt-4">
+		{% for i in player %}
+			<div class="card ">
+				<div class="card-header bg-gray text-white" id="headingOne{{i.id}}">
+					<div class="row">
+						<div class="col-9">
+							<h2 class="mb-0">
+								<button class="btn btn-link text-primary collapsed" type="button" data-toggle="collapse" data-target="#collapseOne{{i.id}}" aria-expanded="true" aria-controls="collapseOne">
+					          <font color="black"><b>{{i.name}}</b></font>
+					        	</button>
+							</h2>
+						</div>
+
+						<div class="col-3 ">
+							<div class="editdeletepane float-right">
+								{% if 'username' in session %}
+								<a href="{{url_for('editPlayerList',country_id=country.id,p_id=i.id) }}" class="btn btn-info btn-sm"><i class="fa fa-pencil-square fa-lg"></i></a>
+
+
+
+								<a href="{{url_for('deletePlayerList',player_id=country.id,list_id=i.id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash fa-lg"></i></a>
+								{% endif %}
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div id="collapseOne{{i.id}}" class="collapse" aria-labelledby="headingOne{{i.id}}" data-parent="#accordionExample">
+					<div class="card-body">
+						<div class="panel-body"><font color="red"><i><b>About Player:</b></i></font>{{i.about}}</div>
+						<div class="panel-body"><font color="red"><i><b>Jersey Number:</b></i></font>{{i.jersey_number}}</div>
+						<div class="panel-body"><font color="red"><i><b>Runs:</b></i></font>{{i.runs}}</div>
+						<div class="panel-body"><font color="red"><i><b>Half Century:</b></i></font>{{i.half_century}}</div>
+						<div class="panel-body"><font color="red"><i><b>Century:</b></i></font>{{i.century}}</div>
+						<div class="panel-body"><font color="red"><i><b>Player Place:</b></i></font>{{i.place}}</div>
+					</div>
+				</div>
+
+			</div>
+		{% endfor %}
+	</div>
+</div>
+	
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>	
+
+
+
+</body>
+</html>

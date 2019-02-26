@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <title>Cricket Item Catalog</title>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+ <link rel="stylesheet" type="text/css" href="/static/style.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
+<style>
+	.gap-padding{
+		padding-top: 50px;
+	}
+
+
+</style>
+<body>
+    <div class="row">
+        <div class="col-md-12">
+            <img src="{{url_for('static',filename='cricket.png')}}" style="margin:0px; width:1520px; height: 235px;">
+        </div>
+    </div>
+
+    
+	<form action="{{ url_for('newPlayerList',player_id=player_id) }}" method="post">
+	   <div style="background-color: purple;">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="mt-2">
+                        <h3><font color="white">New Player</font></h3>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+	   <div class="container border mt-2 p-4" style="background-color: #2F4F4F; border-radius: 15px; padding:25px; " >   
+            <div class="tab-content" style="margin: 15px;">
+                <div class="tab-pane container active">
+                    <div class="row my-padding-12  center mt-2" style="width:96%;background-color: #E8E8FA; padding: 10px; border-radius: 15px;">
+                        <div class="col-md-4 mt-2">
+                            Name<input type="text" class="form-control" name="name" required="required"> 
+                        </div>
+
+                        <div class="col-md-4 mt-2">
+                            Jersey_Number<input type="text" class="form-control" name="jersey_number" required="required">
+                        </div>
+
+                        <div class="col-md-4 mt-2">
+                            Runs<input type="text" class="form-control" name="runs" required="required">
+                        </div>
+
+                        <div class="col-md-4 mt-2">
+                            Half_century<input type="text" class="form-control" name="half_century" required="required">
+                        </div>
+
+                        <div class="col-md-4 mt-2">
+                            Century<input type="text" class="form-control" name="century" required="required">
+                        </div>
+
+                        <div class="col-md-4 mt-2">
+                            Place<input type="text" class="form-control" name="place" required="required">
+                        </div>
+
+                        <div class="col-md-12 mt-2">
+                            About<textarea class="form-control " rows="3" cols="50" name="about" required="required"></textarea>
+                        </div>                
+                    </div>
+                </div>
+            <div class="row offset-sm-4">
+                <div class="col-sm-2 offset-col-sm-3 mt-2">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+
+                <div class="col-sm-4 offset-col-sm-3 mt-2">
+                    <a href="{{url_for('showPlayers',country_id=player_id)}}" class="btn btn-warning">Cancel</a>
+                </div>          
+            </div>
+    	</div>
+    </div>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

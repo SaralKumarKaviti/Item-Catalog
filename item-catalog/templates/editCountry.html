@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <title>Cricket Item Catalog</title>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+ <link rel="stylesheet" type="text/css" href="/static/style.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
+
+<style>
+input[type=text]{
+  width: 50%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border:none;
+  border-radius: 15px;
+  background:#F5DEB3;
+}
+
+input[type=text]:focus{
+  background-color:#ddd;
+  outline:none;
+
+}
+hr{
+  border:1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+</style>
+
+<body>
+	<form action="{{ url_for('editCountry',country_id=country.id)}}" method="post">
+		<div class="row">
+			<div class="col-md-12">
+				<img src="{{url_for('static',filename='cricket.png')}}" style="margin:0px; width:1520px; height: 235px;">
+      		</div>
+    	</div>
+
+		<div style="background-color: purple;">
+        	<div class="row">
+            	<div class="col-md-12">
+                	<ul class="mt-2">
+                    	<h3><font color="white">Edit Country</font></h3>
+                	</ul>
+            	</div>
+        	</div>
+    	</div>
+		
+		<div style="padding-top: 60px;">
+			<div class="container border mt-2 p-4" style="border-radius: 15px; box-shadow: 10px 10px #888888;background-color: #E0FFFF; padding-top:35px; width: 83%">	
+        		<div class="tab-content">
+          			<div class="tab-pane container active">
+          				<div class="row my-padding-12  center">
+              			<h3>Enter country name.</h3>
+                  			<hr class="container">
+        						<center><label for="text"><b>Country Name</b></label>
+        							<input type="text" name="name">
+        						</center>
+        					<hr>
+        				</div>
+    				</div>
+    			</div>
+    
+				<div class="row offset-sm-4">
+	    			<div class="col-sm-2 offset-col-sm-3 mt-2" style="
+	    			padding-left: 400px; padding-right: 250px; padding-bottom: 25px;" >
+	    			<button type="submit" class="btn btn-success">Edit</button>
+	    		</div>
+	    		
+	    		<div class="col-sm-4 offset-col-sm-3 mt-2">
+	    			<a href="{{url_for('showCountry')}}" class="btn btn-danger">Cancel</a>
+	    		</div>
+			</div>
+		</div>
+	</form>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
+

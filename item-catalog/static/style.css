@@ -1,0 +1,47 @@
+
+.header1{
+    width:100px;
+    height:110px;
+   	margin:0 auto;
+    position:relative;
+
+  }
+	/*.col-md-12 img{
+		margin: 0 auto;
+		margin-left: 100px;
+		
+	}*/
+
+h1{
+	font-style: bold;
+	text-align: center;
+}
+.flash{
+	background:#cee5F5;
+}
+
+.gappad{
+	margin-top: 20px;
+	
+}
+
+.bg-honey {
+	background-color: honeydew;
+	font-size: 22px;
+}
+
+.bg-gray {
+	background-color: #ccc;
+}
+
+.border{
+	box-shadow: 0px 0px 5px #CCC;
+}
+
+.x-overflow {
+	overflow-x: hidden;
+}
+
+.mt-2 {
+	margin-top: 15px;
+}

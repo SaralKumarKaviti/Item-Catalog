@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Cricket Item Catalog</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+ 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+
+<body>
+  <div class="row">
+    <div class="col-md-12">
+      <img src="{{url_for('static',filename='cricket.png')}}" style="margin:0px; width:1520px; height: 235px;">
+    </div>
+  </div>
+  
+  <div class="col-md-12">
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <ul class="nav navbar-nav">
+          <li class="active mt-2" style="color: white; font-style:normal;">Home</li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          {% if 'username' not in session %}
+           <li><button type="submit" class="btn btn-default mt-2" style="border-radius: 4px; margin-right: 10px;">
+            <a href="{{url_for('showLogin')}}"><span class="glyphicon glyphicon-log-in"></span> Login</a></button>
+          </li>
+          {% else %}
+          <li><button type="submit" class="btn btn-default mt-2" style="border-radius: 4px; margin-right: 10px;">
+            <a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-log-out"></span>logout</a></button>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="container-fluid x-overflow">
+    <div class="row">
+      <div class="col-sm-6" style="background-color: #E8E8FA;">
+        <div class="row">
+          <h3 class="col-sm-10">Country Names</h3>
+            <button type="submit" class="btn btn-default mt-2">
+              <a href="{{url_for('newCountry')}}"><span class="glyphicon glyphicon-plus" style="font-size:15px;color:green;"></span></a>Add
+            </button>        
+        </div>
+      <br />
+      {% for c in country %}
+        <ul class="list-group"> 
+          <li class="list-group-item" style="background-color: #2F4F4F">
+              <div class="row">
+              <a href="{{url_for('showPlayers',country_id=c.id)}}" class="col-sm-10">
+                <h4><font color="white">{{c.name}}</font></h4>
+              </a>
+              {% if 'username' in session %}
+              <div class="col-sm-2 row mt-2">
+                <a href="{{url_for('editCountry',country_id=c.id)}}" class="col-sm-6">
+                  <span class="glyphicon glyphicon-edit" style="font-size:20px;color:white;"></span>
+                </a>
+
+                <a href="{{url_for('deleteCountry',country_id=c.id)}}" class="col-sm-6">
+                  <span class="glyphicon glyphicon-trash" style="font-size:20px;color:red;"></span>
+                </a>                                  
+              </div>              
+            </div>
+              {% endif %}
+          </li>
+        </ul>
+      {% endfor %}
+    </div>
+
+  <div class="col-sm-6" style="background-color:#E8E8FA ;">
+    <div class="container col-sm-12">
+      <h3>Cricket Images</h3>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin-top: 27px;">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+      <li data-target="#myCarousel" data-slide-to="3"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      <div class="item active">
+        <img src="{{url_for('static',filename='bats.jpg')}}" alt="bats" style="height: 320px; width: 100%;">
+      </div>
+
+      <div class="item">
+        <img src="{{url_for('static',filename='ground.jpg')}}" alt="ground" style="height: 320px; width: 100%;">
+      </div>
+    
+      <div class="item">
+        <img src="{{url_for('static',filename='world.jpg')}}" alt="world" style="height: 320px; width: 100%;">
+      </div>
+
+      <div class="item">
+        <img src="{{url_for('static',filename='wworld.jpg')}}" alt="wworld" style="height: 320px; width: 100%;">
+      </div>
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+</div>
+</div>
+</div>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
