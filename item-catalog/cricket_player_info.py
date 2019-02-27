@@ -48,7 +48,8 @@ player1 = Player(name="Sourav Ganguly",
                  half_century=114,
                  century=38,
                  place="Kolkata",
-                 player_id=1
+                 player_id=1,
+                 user_id=1
                  )
 session.add(player1)
 session.commit()
@@ -65,7 +66,8 @@ player2 = Player(name="Sachin Tendulkar",
                  half_century=177,
                  century=101,
                  place="Mumbai",
-                 player_id=1
+                 player_id=1,
+                 user_id=1
                  )
 session.add(player2)
 session.commit()
@@ -81,7 +83,8 @@ player3 = Player(name="MS Dhoni",
                  half_century=125,
                  century=16,
                  place="Ranchi",
-                 player_id=1
+                 player_id=1,
+                 user_id=1
                  )
 session.add(player3)
 session.commit()
@@ -98,7 +101,8 @@ player4 = Player(name="Virat Kohli",
                  half_century=122,
                  century=68,
                  place="Delhi",
-                 player_id=1
+                 player_id=1,
+                 user_id=1
                  )
 session.add(player4)
 session.commit()
@@ -116,7 +120,8 @@ player5 = Player(name="Rohit Sharma",
                  half_century=98,
                  century=30,
                  place="Maharashtra",
-                 player_id=1
+                 player_id=1,
+                 user_id=1
                  )
 session.add(player5)
 session.commit()
@@ -137,7 +142,8 @@ player6 = Player(name="Hardik Pandya",
                  half_century=10,
                  century=1,
                  place="Gujarat",
-                 player_id=1
+                 player_id=1,
+                 user_id=1
                  )
 session.add(player6)
 session.commit()
@@ -162,7 +168,8 @@ player7 = Player(name="KL Rahul",
                  half_century=27,
                  century=8,
                  place="Karnataka",
-                 player_id=1)
+                 player_id=1,
+                 user_id=1)
 session.add(player7)
 session.commit()
 
@@ -183,7 +190,8 @@ player8 = Player(name="Shikhar Dhawan",
                  half_century=73,
                  century=22,
                  place="Delhi",
-                 player_id=1)
+                 player_id=1,
+                 user_id=1)
 session.add(player8)
 session.commit()
 
@@ -205,12 +213,12 @@ player9 = Player(name="Yuvraj Singh",
                  half_century=83,
                  century=17,
                  place="Chandigarh",
-                 player_id=1)
+                 player_id=1,user_id=1)
 session.add(player9)
 session.commit()
 
 # Menu(list of player) for Country Australia
-country2 = Country(name="Australia")
+country2 = Country(name="Australia",user_id=1)
 session.add(country2)
 session.commit()
 
@@ -229,7 +237,7 @@ player1 = Player(name="David Warner",
                  half_century=95,
                  century=35,
                  place="New South Wales",
-                 player_id=2)
+                 player_id=2,user_id=1)
 session.add(player1)
 session.commit()
 
@@ -244,7 +252,7 @@ player2 = Player(name="Steven Smith",
                  half_century=64,
                  century=35,
                  place="Sydney",
-                 player_id=2)
+                 player_id=2,user_id=1)
 session.add(player2)
 session.commit()
 
@@ -259,7 +267,7 @@ player3 = Player(name="Aaron Finch",
                  half_century=41,
                  century=14,
                  place="Colac",
-                 player_id=2)
+                 player_id=2,user_id=1)
 session.add(player3)
 session.commit()
 
@@ -282,7 +290,7 @@ player4 = Player(name="Michael Hussy",
                  half_century=85,
                  century=24,
                  place="Perth",
-                 player_id=2)
+                 player_id=2,user_id=1)
 session.add(player4)
 session.commit()
 
@@ -300,7 +308,7 @@ player5 = Player(name="Shane Waston",
                  half_century=83,
                  century=18,
                  place="Queensland",
-                 player_id=2)
+                 player_id=2,user_id=1)
 session.add(player5)
 session.commit()
 
@@ -321,13 +329,13 @@ player6 = Player(name="Travis Head",
                  half_century=15,
                  century=1,
                  place="Adelaide",
-                 player_id=2)
+                 player_id=2,user_id=1)
 session.add(player6)
 session.commit()
 
 
 # Menu (list of player) for Country Pakistan
-country3 = Country(name="Pakistan")
+country3 = Country(name="Pakistan",user_id=1)
 session.add(country3)
 session.commit()
 
@@ -343,7 +351,7 @@ player1 = Player(name="Mohammad Hafeez",
                  runs="10,800",
                  half_century=58,
                  century=21,
-                 place="Punjab", player_id=3)
+                 place="Punjab", player_id=3,user_id=1)
 session.add(player1)
 session.commit()
 
@@ -357,7 +365,7 @@ player2 = Player(name="Umar Akmal",
                  half_century=36,
                  century=3,
                  place="Lahore",
-                 player_id=3)
+                 player_id=3,user_id=1)
 session.add(player2)
 session.commit()
 
@@ -374,7 +382,7 @@ player3 = Player(name="Kamran Akmal",
                  half_century=28,
                  century=11,
                  place="Lahore",
-                 player_id=3)
+                 player_id=3,user_id=1)
 session.add(player3)
 session.commit()
 
@@ -391,7 +399,7 @@ player4 = Player(name="Shoaib Malik",
                  half_century=58,
                  century=12,
                  place="Sialkot",
-                 player_id=3)
+                 player_id=3,user_id=1)
 session.add(player4)
 session.commit()
 
@@ -408,7 +416,7 @@ player5 = Player(name="Shahid Afridi",
                  half_century=51,
                  century=11,
                  place="Khyber Agency",
-                 player_id=3)
+                 player_id=3,user_id=1)
 session.add(player5)
 session.commit()
 
@@ -422,7 +430,7 @@ player6 = Player(name="Salman Butt",
                  half_century=28,
                  century=11,
                  place="Lahore",
-                 player_id=3)
+                 player_id=3,user_id=1)
 session.add(player6)
 session.commit()
 
@@ -438,7 +446,7 @@ player7 = Player(name="Inzamam-ul-Haq",
                  half_century=122,
                  century=35,
                  place="Multan",
-                 player_id=3)
+                 player_id=3,user_id=1)
 session.add(player7)
 session.commit()
 

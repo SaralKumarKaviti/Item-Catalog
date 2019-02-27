@@ -28,6 +28,7 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
+# For User login
 @app.route('/login')
 def showLogin():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
@@ -40,6 +41,7 @@ def showLogin():
                            player=player)
 
 
+# If User already logged
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
     if request.args.get('state') != login_session['state']:
@@ -125,6 +127,7 @@ def gconnect():
     return output
 
 
+# Create New User
 def createUser(login_session):
     newUser = User(name=login_session['username'],
                    email=login_session['email'],
@@ -136,11 +139,13 @@ def createUser(login_session):
     return user.id
 
 
+# Getting information of user
 def getUserInfo(user_id):
     user = session.query(User).filter_by(id=user_id).one()
     return user
 
 
+# Getting user email address
 def getUserID(email):
     try:
         user = session.query(User).filter_by(email=email).one()
@@ -149,18 +154,21 @@ def getUserID(email):
         return None
 
 
+# To read country JSON data on web browser
 @app.route('/country/JSON')
 def countryJSON():
     country = session.query(Country).all()
     return jsonify(country=[c.serialize for c in country])
 
 
+# To read country wise of player JSON
 @app.route('/country/<int:country_id>/menu/<int:player_id>/JSON')
 def countryListJSON(country_id, player_id):
     Player_List = session.query(Player).filter_by(id=player_id).one()
     return jsonify(Player_List=Player_List.serialize)
 
 
+# To read players JSON
 @app.route('/country/<int:player_id>/menu/JSON')
 def playerListJSON(player_id):
     country = session.query(Country).filter_by(id=player_id).one()
@@ -168,12 +176,14 @@ def playerListJSON(player_id):
     return jsonify(PlayerLists=[i.serialize for i in player])
 
 
+# This is a home page of entire project
 @app.route('/country/')
 def showCountry():
     country = session.query(Country).all()
     return render_template('country.html', country=country)
 
 
+# Create new Country
 @app.route('/country/new/', methods=['GET', 'POST'])
 def newCountry():
     if 'username' not in login_session:
@@ -188,11 +198,18 @@ def newCountry():
         return render_template('newCountry.html')
 
 
+# To Editing existing country name
 @app.route('/country/<int:country_id>/edit/', methods=['GET', 'POST'])
 def editCountry(country_id):
     if 'username' not in login_session:
         return redirect('/login')
     editedCountry = session.query(Country).filter_by(id=country_id).one()
+    creater_id = getUserInfo(editedCountry.user_id)
+    user_id = getUserInfo(login_session['user_id'])
+    if creater_id.id != login_session['user_id']:
+        flash("You cannot edit this Country "
+              "This is belongs to %s" % (creater_id.name))
+        return redirect(url_for('showCountry'))
     if request.method == 'POST':
         if request.form['name']:
             editedCountry.name = request.form['name']
@@ -202,11 +219,18 @@ def editCountry(country_id):
         return render_template('editCountry.html', country=editedCountry)
 
 
+# To Deleting existing Country
 @app.route('/country/<int:country_id>/delete/', methods=['GET', 'POST'])
 def deleteCountry(country_id):
     if 'username' not in login_session:
         return redirect('/login')
     countryToDelete = session.query(Country).filter_by(id=country_id).one()
+    creater_id = getUserInfo(countryToDelete.user_id)
+    user_id = getUserInfo(login_session['user_id'])
+    if creater_id.id != login_session['user_id']:
+        flash("You cannot delete this Country "
+              "This is belongs to %s" % (creater_id.name))
+        return redirect(url_for('showCountry'))
     if request.method == 'POST':
         session.delete(countryToDelete)
         flash("Successfully Deleted %s" % (countryToDelete.name))
@@ -216,6 +240,7 @@ def deleteCountry(country_id):
         return render_template('deleteCountry.html', country=countryToDelete)
 
 
+# It's Displays the total player list of partcular country
 @app.route('/country/<int:country_id>/players')
 def showPlayers(country_id):
     country = session.query(Country).filter_by(id=country_id).one()
@@ -223,11 +248,18 @@ def showPlayers(country_id):
     return render_template('menu.html', country=country, player=player)
 
 
+# Creating new player
 @app.route('/country/<int:player_id>/new/', methods=['GET', 'POST'])
 def newPlayerList(player_id):
     if 'username' not in login_session:
         return redirect('login')
     country = session.query(Country).filter_by(id=player_id).one()
+    creater_id = getUserInfo(country.user_id)
+    user_id = getUserInfo(login_session['user_id'])
+    if creater_id.id != login_session['user_id']:
+        flash("You cannot add this player "
+              "This is belongs to %s" % (creater_id.name))
+        return redirect(url_for('showCountry', country_id=player_id))
     if request.method == 'POST':
         newList = Player(name=request.form['name'],
                          about=request.form['about'],
@@ -236,7 +268,8 @@ def newPlayerList(player_id):
                          half_century=request.form['half_century'],
                          century=request.form['century'],
                          place=request.form['place'],
-                         player_id=player_id)
+                         player_id=player_id,
+                         user_id=login_session['user_id'])
         session.add(newList)
         session.commit()
         flash("New Player List %s is created" % (newList))
@@ -245,6 +278,7 @@ def newPlayerList(player_id):
         return render_template('newplayerlist.html', player_id=player_id)
 
 
+# Editing to particular country player
 @app.route('/country/<int:country_id>/<int:p_id>/edit/',
            methods=['GET', 'POST'])
 def editPlayerList(country_id, p_id):
@@ -252,6 +286,12 @@ def editPlayerList(country_id, p_id):
         return redirect('/login')
     editedList = session.query(Player).filter_by(id=p_id).one()
     country = session.query(Country).filter_by(id=country_id).one()
+    creater_id = getUserInfo(editedList.user_id)
+    user_id = getUserInfo(login_session['user_id'])
+    if creater_id.id != login_session['user_id']:
+        flash("You cannot edit this Country "
+              "This is belongs to %s" % (creater_id.name))
+        return redirect(url_for('showPlayers', country_id=country_id))
     if request.method == 'POST':
         editedList.name = request.form['name']
         editedList.about = request.form['about']
@@ -269,6 +309,7 @@ def editPlayerList(country_id, p_id):
                                country=country, player=editedList)
 
 
+# Deleting particular country of player
 @app.route('/country/<int:player_id>/<int:list_id>/delete/',
            methods=['GET', 'POST'])
 def deletePlayerList(player_id, list_id):
@@ -276,6 +317,12 @@ def deletePlayerList(player_id, list_id):
         return redirect('/login')
     country = session.query(Country).filter_by(id=player_id).one()
     listToDelete = session.query(Player).filter_by(id=list_id).one()
+    creater_id = getUserInfo(listToDelete.user_id)
+    user_id = getUserInfo(login_session['user_id'])
+    if creater_id.id != login_session['user_id']:
+        flash("You cannot edit this Country "
+              "This is belongs to %s" % (creater_id.name))
+        return redirect(url_for('showPlayers', country_id=player_id))
     if request.method == 'POST':
         session.delete(listToDelete)
         session.commit()
@@ -285,6 +332,7 @@ def deletePlayerList(player_id, list_id):
         return render_template('deleteplayerlist.html', lists=listToDelete)
 
 
+# Logout from application
 @app.route('/disconnect')
 def logout():
     access_token = login_session['access_token']
